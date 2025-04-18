@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Remarks Categorizer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f4f8;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      font-size: 1.5rem;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      gap: 1.5rem;
+    }
+    .category {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 1rem;
+    }
+    .category h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    .remark {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #e8f5e9;
+      padding: 0.5rem;
+      margin: 0.25rem 0;
+      border-radius: 5px;
+    }
+    .remark button {
+      background: #4CAF50;
+      border: none;
+      color: white;
+      padding: 0.3rem 0.6rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .remark button:hover {
+      background: #45a049;
+    }
+    @media (max-width: 600px) {
+      .remark {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .remark button {
+        margin-top: 0.3rem;
+      }
+    }
+    #toast {
+      visibility: hidden;
+      min-width: 200px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      padding: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>Student Remarks Categorizer</header>
+  <div class="container">
+    <div class="category">
+      <h2>✅ Good Remarks</h2>
+      <!-- Good Remarks will go here -->
+    </div>
+    <div class="category">
+      <h2>⚖️ Intermediate Remarks</h2>
+      <!-- Intermediate Remarks will go here -->
+    </div>
+    <div class="category">
+      <h2>⚠️ Needs to Improve Remarks</h2>
+      <!-- Needs to Improve Remarks will go here -->
+    </div>
+  </div>
+  <div id="toast">Copied to clipboard!</div>
+  <script>
+    const remarks = {
+      good: [
+        "Skillful and enthusiastic in making things.",
+        "Has originality and innovativeness.",
+        "Has spirit and plays for winning.",
+        "Applies skills in new situations, has self awareness.",
+        "Understand, and solve her own problems.",
+        "Know her ability and takes correct decision.",
+        "Has the ability to be flexible.",
+        "Always tried to be creative and imaginative innovative.",
+        "Take criticism positively, listen to others, actively.",
+        "Communicates with appropriate reasoning and body language.",
+        "Identifies and responds to others with empathy.",
+        "Has control over her/his emotions.",
+        "Show great interest and enjoyment & attitude in drawing.",
+        "Always very keen to learn.",
+        "Has an aged sense of rhythm and time.",
+        "Develop learning habit for better understanding of the subject.",
+        "Keep up the performance for the future.",
+        "Aim to get 'A' grades in all subjects.",
+        "Can achieve higher grades.",
+        "Keep up the good efforts of achievement.",
+        "Seek the challenge of understanding your grades.",
+        "Utilise your skills at maximum and be more interactive.",
+        "Read a lot of books to improve your vocabulary."
+      ],
+      intermediate: [
+        "Enhance your academic skills for better result.",
+        "Enhance your academic skill for better grade.",
+        "Enhance your interactive quality.",
+        "Develop academic interest to enhance your achievements.",
+        "Be more interactive in class.",
+        "Be responsible towards your work.",
+        "Parents guidance and support can encourage the child for better performance."
+      ],
+      needsImprovement: [
+        "Can show better performance in academic with little more efforts.",
+        "Needs to work hard in 'B' graded subjects.",
+        "Needs to put more efforts in academics.",
+        "Needs to put more effort into math.",
+        "Needs to learn spellings to improve writing skills.",
+        "Focus on language skill and improve overall grade scale.",
+        "Span of attention must improve.",
+        "Avoid careless mistakes and study well.",
+        "Should sincerely work on the assigned work.",
+        "Must be sincere in his submission and need to be punctual.",
+        "Should focus on completion of work as well as 'C' graded subjects.",
+        "Push yourself for a higher outcome in 'C' graded subjects.",
+        "Try to upgrade all 'B' graded subjects."
+      ]
+    };
+
+    function showToast() {
+      const toast = document.getElementById("toast");
+      toast.style.visibility = "visible";
+      setTimeout(() => {
+        toast.style.visibility = "hidden";
+      }, 1500);
+    }
+
+    function renderRemarks(selector, remarksArray) {
+      const container = document.querySelector(selector);
+      remarksArray.forEach(remark => {
+        const div = document.createElement('div');
+        div.className = 'remark';
+        const button = document.createElement('button');
+        button.textContent = "Copy";
+        button.onclick = () => {
+          navigator.clipboard.writeText(remark).then(() => showToast());
+        };
+        const span = document.createElement('span');
+        span.textContent = remark;
+        div.appendChild(span);
+        div.appendChild(button);
+        container.appendChild(div);
+      });
+    }
+
+    renderRemarks('.category:nth-child(1)', remarks.good);
+    renderRemarks('.category:nth-child(2)', remarks.intermediate);
+    renderRemarks('.category:nth-child(3)', remarks.needsImprovement);
+  </script>
+</body>
+</html>
